@@ -1,0 +1,41 @@
+USER=ajaya.agarwal
+HOMEGW=192.168.1.1
+OFFICEGW=100.112.0.1
+VPNIP=49.40.3.252
+ROUTES=10.135.96.0,10.135.98.0,10.135.120.0,10.135.121.0,10.135.123.0,10.135.125.0,10.135.126.0
+
+IFS=","
+
+if [ $# -eq 0 ]
+then
+    echo "usage: vpn.sh [h|o]"
+    echo "   o stands for office, h for home"
+    return
+fi
+
+if [ $1 == "o" ]; then
+    GATEWAY=$OFFICEGW
+else
+    GATEWAY=$HOMEGW
+fi
+
+connected=`ps aux | grep openconnect | grep vpnc | wc -l`
+
+if [ $connected -eq 0 ]; then
+    sudo openconnect -b -u $USER -s /etc/vpnc/vpnc-script $VPNIP
+    sudo route del -net 0.0.0.0 netmask 0.0.0.0 dev tun0
+    echo "adding gateway $GATEWAY"
+    sudo route add default gw $GATEWAY wlan0
+    for ROUTE in $ROUTES; do
+        sudo route add -net $ROUTE/24 dev tun0
+    done
+fi
+
+killvpn() {
+    pid=`ps -e | grep openconnect | awk -F' ' '{ print $1}'`
+    echo $pid
+    sudo kill -9 $pid
+}
+#killvpn
+#sudo route add default gw 192.168.0.1 wlan0
+#route -n
