@@ -1,0 +1,6 @@
+debug(){
+  source .tox/py27/bin/activate
+  testr list-tests $1 > my-list
+  python -m testtools.run discover --load-list my-list
+  deactivate
+}
