@@ -1,0 +1,12 @@
+Host *
+  ServerAliveInterval 60
+
+Host jumphost
+  Hostname 49.40.64.85
+  User ajayaa
+
+Host 49.40.*.* !49.40.64.85
+  StrictHostKeyChecking no
+  User ubuntu
+  UserKnownHostsFile /dev/null
+  ProxyCommand ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null jumphost nc -q0 %h %p
