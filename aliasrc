@@ -1,4 +1,6 @@
 alias tmux="tmux -2"
+alias tml="tmux list-sessions"
+alias tma="tmux attach-session -t $1"
 alias "nmr=sudo service network-manager restart"
 alias "port=sudo ss -tlp4"
 alias "os=openstack"

@@ -1,0 +1,2 @@
+ln -s ~/dot-file/aliasrc ~/.aliasrc
+echo "source ~/.aliasrc" >> ~/.bashrc
