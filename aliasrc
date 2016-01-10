@@ -4,7 +4,6 @@ alias "port=sudo ss -tlp4"
 alias "os=openstack"
 alias "c=xclip -selection clipboard"
 alias "v=xclip -o"
-#alias "vpn=sudo openconnect 49.40.3.252"
 alias "..=cd .."
 alias "...=cd ../.."
 alias "....=cd ../../.."
@@ -21,3 +20,7 @@ alias "gswf=git show --pretty="format:" --name-only"
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=/home/aj/go-akhada/go
 export PATH=$PATH:$GOPATH/bin
+alias list-machine="aws ec2 describe-instances --filters \"Name=key-name,Values=foo\" \"Name=instance-state-name, Values=running\""
+alias security-groups="aws ec2 describe-security-groups | less"
+alias delete-machine="aws ec2 terminate-instances --instance-id $@"
+alias create-machine=" aws ec2 run-instances --image-id ami-62be8b0c $@"
