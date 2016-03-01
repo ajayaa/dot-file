@@ -1,10 +1,8 @@
 "3.10.1 (created: 2015/08/25 00:41:59)
 
-source! /home/aj/.vimperatorrc.local
-
 " vim: set ft=vimperator:
-:imap jj <esc> 
-:cmap jj <esc> 
+" :imap jj <esc>
+" :cmap jj <esc>
 
 "Scroll more with j and k
 :noremap j 3j
