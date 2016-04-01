@@ -6,8 +6,11 @@ else
     echo .bash_aliases already exists! Not creating symlink.
 fi
 
-if [ ! -f ~/.vimperatorcc ]; then
-    ln -s $current_dir/vimperatorrc ~/.vimperatorrc
-else
-    echo .vimperatorrc already exists! Not creating symlink.
-fi
+source install.sh
+
+# Not using firefox anymore due to flash issues.
+#if [ ! -f ~/.vimperatorcc ]; then
+#    ln -s $current_dir/vimperatorrc ~/.vimperatorrc
+#else
+#    echo .vimperatorrc already exists! Not creating symlink.
+#fi
