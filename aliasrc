@@ -84,4 +84,5 @@ alias 'gll=git log'
 alias 'gls=git log --pretty=oneline --abbrev-commit -n5'
 alias 'gsw=git show'
 alias 'gswf=git show --pretty="format:" --name-only'
+alias 'gad=git show $@'
 

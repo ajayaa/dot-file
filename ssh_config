@@ -1,12 +1,14 @@
 Host *
   ServerAliveInterval 60
 
-Host jumphost
-  Hostname 49.40.64.85
-  User ajayaa
+# The below settings show how to access servers through a jumphost.
 
-Host 49.40.*.* !49.40.64.85
-  StrictHostKeyChecking no
-  User ubuntu
-  UserKnownHostsFile /dev/null
-  ProxyCommand ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null jumphost nc -q0 %h %p
+#Host jumphost
+#  Hostname YYY.YYY.YYY.YYY
+#  User ajayaa
+
+#Host XXX.XXX.*.* !YYY.YYY.YYY.YYY
+#  StrictHostKeyChecking no
+#  User ubuntu
+#  UserKnownHostsFile /dev/null
+#  ProxyCommand ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null jumphost nc -q0 %h %p
