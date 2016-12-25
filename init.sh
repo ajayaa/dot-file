@@ -1,3 +1,8 @@
+# (TODO) Create a system to pass name of the platform and allow to create different conf
+# files for different types of platform. The easiest way to achieve that is to
+# create different conf files for different platforms. If done in a single conf file
+# things would become a litle clumsy. More ideas?
+
 function help {
     echo "Usage: ./init.sh [remote|local]"
 }
