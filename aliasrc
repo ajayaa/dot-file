@@ -1,31 +1,23 @@
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+alias pig="ping -c3 google.com"
 alias tmux="tmux -2"
-alias tml="tmux list-sessions"
-alias tma="tmux attach-session -t $1"
+alias tml="tmux -2 list-sessions"
+alias tma="tmux -2 attach-session -t $1"
+alias tmk="tmux -2 kill-session -t $1"
 alias "nmr=sudo service network-manager restart"
 alias "port=sudo ss -tlp4"
-alias "os=openstack"
-alias "c=xclip -selection clipboard"
-alias "v=xclip -o"
+#alias "c=xclip -selection clipboard"
+#alias "v=xclip -o"
 alias "..=cd .."
 alias "...=cd ../.."
 alias "....=cd ../../.."
-alias "gb=git branch -avl"
-alias "gd=git diff"
-alias "gst=git status"
-alias "gc=git commit"
-alias "glf=git log --oneline --graph --decorate --all"
-alias "gl=git log"
-alias "gsw=git show"
-alias "gswf=git show --pretty="format:" --name-only"
 #increase power of wireless
 #iwconfig wlan0 Tx-Power 30
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=/home/aj/go-akhada/go
-export PATH=$PATH:$GOPATH/bin
-alias list-machines="aws ec2 describe-instances --filters \"Name=key-name,Values=foo\" \"Name=instance-state-name, Values=running\""
-alias security-groups="aws ec2 describe-security-groups | less"
-alias delete-machine="aws ec2 terminate-instances --instance-id $@"
-alias create-machine=" aws ec2 run-instances --image-id ami-62be8b0c $@"
+#export PATH=$PATH:/usr/local/go/bin
+#export GOPATH=/home/aj/go-akhada/go
+#export PATH=$PATH:$GOPATH/bin
 
 alias less="less -r $@"
 alias irc="weechat"
@@ -34,8 +26,62 @@ alias docker-mysql="docker run -p 127.0.0.1:3306:3306 --name mysql -e MYSQL_ROOT
 alias mysql-client="mycli -uroot -p123 -h127.0.0.1"
 alias docker-cassandra="docker run  --name 'cassandra' -d cassandra:3.2 -p 9042:9042"
 alias docker-cqlsh="docker run -it --link cassandra:cassandra --rm cassandra:3.2 sh -c 'exec cqlsh $CASSANDRA_PORT_9042_TCP_ADDR'"
-alias docker-cqlsh='docker run -it --link cassandra:cassandra --rm cassandra:3.2 sh -c "exec cqlsh 172.17.0.3"'
+alias docker-cqlsh='docker run -it --link cassandra:cassandra --rm cassandra:3.2 sh -c "exec cqlsh 172.17.0.2"'
 alias docker-rabbitmq="docker run -P -d --hostname rabbit --name rabbit rabbitmq:3.6.0_with_management_plugin"
 docker-ip() {
   docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
 }
+export PS1='\w@\u$ '
+export PS1="\[\033[32m\]\u@\[\033[36;1m\]\w\[\033[m\]\$ "
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+alias vim=/usr/local/Cellar/vim/7.4.1401/bin/vim
+export WORKON_HOME=~/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+export TOKEN=xNUFT3sQHx5ghyzsN2RbzcmPwYEue7NEDRyiLNyUkCZdFjE5wqGrrcJQKpEsnH3p
+export LARVA_TOKEN=eQp1sF86GeBZTLzJmfNBULx6fzp11iZHV6MuXVZKscmqCwjNrBe6EsRUn1rWgcAT
+export PUPA_TOKEN=GEzCzmvRQvMT7tZJZPzi22eLmCZu8cv6Kq1wFsqzSzyeAmftMKZ3PE1Euswszqxy
+export DEVENV3_TOKEN=8sWKLQVaDVp3fYxyHkodZZ4kZqLP4GT9jVHFfkmdh55kydotDK5pMJB9Eh8APGex
+export ACM_TOKEN=3bWQspLV1vmNLW4CreNJ31QqGEjkmauz7FfJEKop6gaBq7syGMcdxMHSGbK95UFf
+export QA3_TOKEN=3KRZ6zcJNy2xLEkxxHaq1Za1d2AfxS9v1Yx7x7sP8EW8LLxC1PPfxSGY167LzSfd
+
+get-prod-ami() {
+  curl -X GET -H "X-AUTH-TOKEN: $TOKEN" "https://api.qubole.com/api/v1.2/clusters/ami" | jq .
+}
+alias staging="ssh staging"
+alias hustle="cd ~/qubole/repos/qbol/hustler/;vim"
+alias tapp="cd ~/qubole/repos/qbol/tapp/;vim"
+HISTSIZE=200000
+HISTFILESIZE=200000
+man() {
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+            man "$@"
+}
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+
+alias 'gpl=git pull origin `git rev-parse --abbrev-ref HEAD`'
+alias 'gps=git push origin `git rev-parse --abbrev-ref HEAD`:`git rev-parse --abbrev-ref HEAD`'
+alias 'gfc=git fetch'
+alias 'gco=git checkout $@'
+alias 'grhh=git reset --hard HEAD'
+alias 'grh=git reset --hard $@'
+alias 'gb=git branch -vl'
+alias 'gd=git diff'
+alias 'gds=git diff --stat'
+alias 'gst=git status'
+alias 'gcm=git commit'
+alias 'glf=git log --oneline --graph --decorate --all'
+alias 'gll=git log'
+alias 'gls=git log --pretty=oneline --abbrev-commit -n5'
+alias 'gsw=git show'
+alias 'gswf=git show --pretty="format:" --name-only'
+
