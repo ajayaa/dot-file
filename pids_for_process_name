@@ -1,4 +1,0 @@
-list_pid(){
-  pids=`ps -e | grep $1 | cut -d " " -f 2`
-  echo -n "pids are "; echo $pids
-}

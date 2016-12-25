@@ -1,3 +1,6 @@
+ENV=SERVER
+if $EN
+
 current_dir=`pwd`
 
 if [ ! -f ~/.bash_aliases ]; then
@@ -7,6 +10,7 @@ else
 fi
 
 source install.sh
+source func.sh
 
 # Not using firefox anymore due to flash issues.
 #if [ ! -f ~/.vimperatorcc ]; then
