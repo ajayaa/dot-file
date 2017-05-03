@@ -24,9 +24,9 @@ echo "OS is: $OS"
 configure_aliases() {
     if [[ $OS == 'mac' ]]; then
         if [ ! -f $HOME/.bash_profile ]; then
-            ln -s $BASE_DIR/rcfiles/aliasrc ~/.bash_profile
-            ln -sf $BASE_DIR/rcfiles/.osxrc ~/.osxrc
-            ln -sf $BASE_DIR/rcfiles/.officerc ~/.officerc
+            ln -s $BASE_DIR/rcfiles/aliasrc $HOME/.bash_profile
+            ln -sf $BASE_DIR/rcfiles/osxrc $HOME/.osxrc
+            #ln -sf $BASE_DIR/rcfiles/officerc $HOME/.officerc
         else
             echo .bash_profile already exists! Not creating symlink.
         fi
@@ -37,7 +37,7 @@ configure_aliases() {
             echo .bash_aliases already exists! Not creating symlink.
         fi
     fi
-    ln -sf $BASE_DIR/rcfiles/.funcrc ~/.funcrc
+    ln -sf $BASE_DIR/rcfiles/funcrc ~/.funcrc
 }
 
 install_general_utils() {

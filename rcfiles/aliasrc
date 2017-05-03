@@ -58,5 +58,8 @@ if [[ $(uname) != "Darwin" ]]; then
     alias "v=xclip -o"
 else
     source $HOME/.osxrc
+fi
+
+if [ -f $HOME/.officerc ]; then
     source $HOME/.officerc
 fi
