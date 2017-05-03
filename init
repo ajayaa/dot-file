@@ -4,7 +4,7 @@
 # things would become a litle clumsy. More ideas?
 
 function help {
-    echo "Usage: ./init.sh [office|personal]"
+    echo "Usage: ./init [office|personal]"
 }
 
 ENV=$1
@@ -85,7 +85,7 @@ configure_vim() {
     if [ ! -f $HOME/.vimrc ]; then
         git clone https://github.com/ajayaa/.vim $HOME/.vim
         cd $HOME/.vim
-        ./init.sh
+        ./init
         cd $HOME
     else
         echo ".vimrc already exists. Not doing anything..."
