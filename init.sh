@@ -94,9 +94,25 @@ configure_vim() {
 
 configure_tmux() {
     if [ ! -f $HOME/.tmux.conf ]; then
-        ln $BASE_DIR/conf_files/tmux.conf ~/.tmux.conf
+        ln $BASE_DIR/conf_files/tmux.conf $HOME/.tmux.conf
     else
         echo ".tmux.conf already exists. Not doing anything..."
+    fi
+}
+
+configure_screen() {
+    if [ ! -f $HOME/.screenrc ]; then
+        ln $BASE_DIR/conf_files/screenrc $HOME/.screenrc
+    else
+        echo ".screenrc already exists. Not doing anything..."
+    fi
+}
+
+configure_ctags() {
+    if [ ! -f $HOME/.ctags ]; then
+        ln $BASE_DIR/conf_files/ctags $HOME/.ctags
+    else
+        echo ".ctags already exists. Not doing anything..."
     fi
 }
 
@@ -105,6 +121,8 @@ configure_git
 configure_vim
 configure_tmux
 configure_aliases
+configure_screen
+configure_ctags
 
 #Not using firefox anymore due to flash issues.
 #if [ ! -f ~/.vimperatorcc ]; then
