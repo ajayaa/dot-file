@@ -44,8 +44,8 @@ install_general_utils() {
     if [[ $OS != "mac" ]]; then
         sudo apt-get install -y git tmux xclip
         exit_status=$?
-        if [ exit_status -ne 0 ]; then
-            sudo yum install -y git tmux xclip
+        if [ $exit_status -ne 0 ]; then
+            sudo yum install -y git tmux
         fi
     else
         echo "Not installing any general utility"
