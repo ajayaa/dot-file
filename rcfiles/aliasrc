@@ -35,7 +35,7 @@ HISTFILESIZE=200000
 
 alias 'gpl=git pull origin `git rev-parse --abbrev-ref HEAD`'
 alias 'gps=git push origin `git rev-parse --abbrev-ref HEAD`:`git rev-parse --abbrev-ref HEAD`'
-alias 'gfc=git fetch'
+alias 'gfo=git fetch origin $@'
 alias 'gco=git checkout $@'
 alias 'grhh=git reset --hard HEAD'
 alias 'grh=git reset --hard $@'
@@ -54,8 +54,8 @@ alias 'gad=git show $@'
 
 source $HOME/.funcrc
 if [[ $(uname) != "Darwin" ]]; then
-    alias "c=xclip -selection clipboard"
-    alias "v=xclip -o"
+    alias "cc=xclip -selection clipboard"
+    alias "vv=xclip -o"
 else
     source $HOME/.osxrc
 fi

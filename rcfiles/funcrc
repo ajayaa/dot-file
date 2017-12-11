@@ -16,3 +16,7 @@ list_pid(){
 docker-ip() {
   docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
 }
+
+grni() {
+    echo "TODO"
+}
