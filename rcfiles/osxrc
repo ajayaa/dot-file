@@ -1,6 +1,4 @@
-export PS1="\[\033[32m\]\u@\[\033[36;1m\]\w\[\033[m\]\$ "
 export CLICOLOR=1
-export LSCOLORS=ExFxBxDxCxegedabagacad
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
@@ -19,6 +17,14 @@ man() {
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
 fi
+
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
 ssh-add
+
+
+alias "lcc=fc -ln -1 | awk '{print $1}' | xargs | pbcopy"
+alias "cc=xclip -selection clipboard"
+alias "vv=xclip -o"

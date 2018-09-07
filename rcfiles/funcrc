@@ -20,3 +20,81 @@ docker-ip() {
 grni() {
     echo "TODO"
 }
+
+colors() {
+    for i in {0..255} ; do
+        printf "\x1b[38;5;${i}mcolour${i}\n"
+        done
+}
+
+kpod_name() {
+    if [[ -z $1 ]]; then
+        name_filter="-o custom-columns=:metadata.name" # unused right now
+        pods=`kubectl get pods --all-namespaces $name_filter -o json`
+    else
+        pods=`kubectl get pods -n $1`
+    fi
+    for pod in $pods; do
+        pod_name=$(echo $pod | grep $2)
+        if [[ ! -z $pod_name ]]; then
+            break
+        fi
+    done
+    echo $pod_name
+}
+
+klog() {
+    if [[ $1 == "--help" ]]; then
+        echo "Usage: klog <namespace to query for pod|ALL> <grep expression to select pod|head -1> <extra options to kubectl>" >&2
+        return
+    fi
+    pod_name=$(kpod_name $1 $2)
+    echo "Tailing logs of: $pod_name" >&2
+    kubectl logs "$pod_name" "${@:3}"
+}
+
+kexec() {
+    if [[ $1 == "--help" ]]; then
+        echo "Usage: kexec <namespace to query for pod|ALL> <grep expression to select pod|head -1> <extra options to kubectl>" >&2
+        return
+    fi
+    pod_name=$(kpod_name $1 $2)
+    echo "Execing into: $pod_name" >&2
+    kubectl exec "$pod_name" "${@:3}"
+}
+kcp() {
+    if [[ $1 == "--help" ]]; then
+        echo "Usage: kcp <namespace to query for pod|ALL> <grep expression to select pod|head -1> <REMOTE:<remote_file_name> <local_file_name>" >&2
+        return
+    fi
+    if [[ (-z $3) || (-z $4) ]]; then
+        echo "Expecting file names as 3rd and 4th argument" >&2
+        return
+    fi
+    pod_name=$(kpod_name $1 $2)
+    if [[ $3 == "REMOTE:"* ]]; then
+        remote_first='true'
+        remote_file_name=${3#REMOTE:}
+    else
+        local_file_name=$3
+    fi
+    if [[ $4 == "REMOTE:"* ]]; then
+        remote_first='false'
+        remote_file_name=${4#REMOTE:}
+    else
+        local_file_name=$4
+    fi
+
+    if [[ $remote_first == "true" ]]; then
+        cmd="kubectl cp $pod_name:$remote_file_name $local_file_name ${@:5}"
+    else
+        cmd="kubectl cp $local_file_name $pod_name:$remote_file_name ${@:5}"
+    fi
+    echo "Executing: $cmd" >&2
+    $cmd
+}
+
+alias "nlogf=klog ingress-nginx controller -f"
+alias "nexec=kexec ingress-nginx controller bash -it"
+alias "ncpconf=kcp ingress-nginx controller REMOTE:/etc/nginx/nginx.conf ."
+alias "nlb=kubectl get svc -l app.kubernetes.io/name=ingress-nginx -o jsonpath={.items[0].status.loadBalancer.ingress[0].hostname}"

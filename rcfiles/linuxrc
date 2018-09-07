@@ -1,0 +1,3 @@
+alias "lcc=fc -ln -1 | awk '{print $1}' | xargs | xclip -selection clipboard"
+alias "cc=xclip -selection clipboard"
+alias "vv=xclip -o"

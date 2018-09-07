@@ -33,6 +33,7 @@ configure_aliases() {
     else
         if [ ! -f $HOME/.bash_aliases ]; then
             ln -s $BASE_DIR/rcfiles/aliasrc ~/.bash_aliases
+            ln -sf $BASE_DIR/rcfiles/linuxrc $HOME/.linuxrc
         else
             echo .bash_aliases already exists! Not creating symlink.
         fi

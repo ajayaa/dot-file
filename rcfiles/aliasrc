@@ -1,4 +1,6 @@
-shopt -s histappend
+#shopt -s histappend
+export PS1='\[\033[0;32m\]\[\033[0m\033[0;32m\]\u\[\033[0;36m\] @ \w\[\033[0;32m\] - [$(git branch 2>/dev/null | grep "^*" | colrm 1 2)\[\033[0;32m\]]\[\033[0m\033[0;32m\] \$\[\033[0m\033[0;32m\]\[\033[0m\] '
+
 alias rm_swp='find . -type f -name .\*.sw? -exec rm -i {} ";"'
 alias pig="ping -c3 google.com"
 alias tmux="tmux -2"
@@ -15,10 +17,12 @@ alias "....=cd ../../.."
 #increase power of wireless
 #iwconfig wlan0 Tx-Power 30
 #export PATH=$PATH:/usr/local/go/bin
-#export GOPATH=/home/aj/go-akhada/go
-#export PATH=$PATH:$GOPATH/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
 
-alias less="less -r $@"
+#alias ls="ls -G"
+alias less="less -R $@"
+#export GREP_OPTIONS="--color=always"
 alias irc="weechat"
 
 alias docker-mysql="docker run -p 127.0.0.1:3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123 -d mysql:5.6.23"
@@ -28,10 +32,11 @@ alias docker-cqlsh="docker run -it --link cassandra:cassandra --rm cassandra:3.2
 alias docker-rabbitmq="docker run -P -d --hostname rabbit --name rabbit rabbitmq:3.6.0_with_management_plugin"
 
 export WORKON_HOME=~/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 source /usr/local/bin/virtualenvwrapper.sh
 
-HISTSIZE=200000
-HISTFILESIZE=200000
+HISTSIZE=20000000
+HISTFILESIZE=20000000
 
 alias 'gpl=git pull origin `git rev-parse --abbrev-ref HEAD`'
 alias 'gps=git push origin `git rev-parse --abbrev-ref HEAD`:`git rev-parse --abbrev-ref HEAD`'
@@ -54,8 +59,7 @@ alias 'gad=git show $@'
 
 source $HOME/.funcrc
 if [[ $(uname) != "Darwin" ]]; then
-    alias "cc=xclip -selection clipboard"
-    alias "vv=xclip -o"
+    source $HOME/.linuxrc
 else
     source $HOME/.osxrc
 fi
@@ -63,3 +67,14 @@ fi
 if [ -f $HOME/.officerc ]; then
     source $HOME/.officerc
 fi
+alias 'sss=source ~/.bashrc'
+
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+#source ~/qubole/fixes/kubernetes/eks/init
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ajaya/src/gcloud/google-cloud-sdk/path.bash.inc' ]; then source '/Users/ajaya/src/gcloud/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/ajaya/src/gcloud/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/ajaya/src/gcloud/google-cloud-sdk/completion.bash.inc'; fi
+
